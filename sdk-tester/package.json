@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "link": "npm link ../sdk",
-    "test": "node dist/app.js"
+    "test": "tsc && node dist/app.js"
   },
   "keywords": [],
   "author": "Sean Chuah",
