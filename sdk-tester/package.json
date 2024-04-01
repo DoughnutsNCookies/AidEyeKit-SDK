@@ -1,13 +1,13 @@
 {
   "name": "sdk-tester",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tester for the AidEyeChat SDK",
   "main": "index.js",
   "scripts": {
     "link": "npm link ../sdk",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node dist/app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sean Chuah",
   "license": "ISC"
 }
