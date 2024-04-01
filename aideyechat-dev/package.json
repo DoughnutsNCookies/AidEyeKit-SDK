@@ -1,0 +1,19 @@
+{
+  "name": "aideyechat-dev",
+  "version": "1.0.0",
+  "description": "AidEyeChat is an Open-source UI SDK which allows app developers to create in-app guides for users",
+  "main": "dist/index.js",
+  "module": "dist/index.m.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && microbundle --tsconfig tsconfig.json --no-sourcemap",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Sean Chuah",
+  "license": "ISC",
+  "devDependencies": {
+    "microbundle": "^0.15.1"
+  }
+}
