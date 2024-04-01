@@ -1,22 +1,17 @@
 import fetch from "isomorphic-unfetch";
 
-type Config = {
-  apiKey: string;
-  baseUrl?: string;
-};
-
 export abstract class Base {
   private apiKey: string;
-  private baseUrl: string;
+  private baseUrl = "https://api.aideyechat.com";
 
-  constructor(config: Config) {
-    const { apiKey, baseUrl } = config;
-
+  constructor(apiKey: string) {
     this.apiKey = apiKey;
-    this.baseUrl = baseUrl || "https://jsonplaceholder.typicode.com";
   }
 
-  protected invoke<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  protected async invoke<T>(
+    endpoint: string,
+    options?: RequestInit
+  ): Promise<T> {
     const url = `${this.baseUrl}/${endpoint}`;
 
     const headers = {
