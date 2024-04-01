@@ -2,9 +2,9 @@
   "name": "sdk-tester",
   "version": "1.0.0",
   "description": "Tester for the AidEyeChat SDK",
-  "main": "index.js",
+  "main": "dist/app.js",
   "scripts": {
-    "link": "npm link ../sdk",
+    "link": "rm -rf node_modules && npm link ../sdk",
     "test": "tsc && node dist/app.js"
   },
   "keywords": [],
