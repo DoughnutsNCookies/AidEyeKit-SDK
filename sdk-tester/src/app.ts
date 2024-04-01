@@ -1,4 +1,4 @@
-import AidEyeSDK from "sdk";
+import AidEyeSDK from "@aideyechat-dev/sdk";
 
 const client = new AidEyeSDK({
   apiKey: "apiKey",
