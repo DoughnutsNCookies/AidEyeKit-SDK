@@ -1,4 +1,4 @@
-import { Base } from "src/base";
+import { Base } from "../base";
 import { Post, NewPost } from "./types";
 
 const resource = "posts";
