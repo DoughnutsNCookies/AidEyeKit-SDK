@@ -1,10 +1,10 @@
 import { Base } from "./base";
-import { Posts } from "./posts";
+import { Chat } from "./chat";
 import { applyMixins } from "./utils";
 
 class AidEyeSDK extends Base {}
-interface AidEyeSDK extends Posts {}
+interface AidEyeSDK extends Chat {}
 
-applyMixins(AidEyeSDK, [Posts]);
+applyMixins(AidEyeSDK, [Chat]);
 
 export default AidEyeSDK;
