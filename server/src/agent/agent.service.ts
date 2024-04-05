@@ -9,7 +9,7 @@ import { MyLogger } from 'src/utils/logging';
 import { imageToBase64, promptInput } from 'src/utils/openai';
 import { sleep, waitForEvent } from 'src/utils/puppeteer';
 import OpenAI from 'openai';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
