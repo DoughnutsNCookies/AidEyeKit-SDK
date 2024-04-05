@@ -59,4 +59,12 @@ export class MyLogger extends ConsoleLogger {
     });
     super.error(PURPLE + message + RESET);
   }
+
+  normal(message: string) {
+    fs.appendFile(this.logFilePath, message + '\n', (err) => {
+      if (err) {
+        console.error(RED + 'Error writing to log file:' + err + RESET);
+      }
+    });
+  }
 }
