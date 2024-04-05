@@ -6,16 +6,20 @@ import { AgentDTO } from 'src/dto/agent.dto';
 import { agentScreenshotPrompt, agentSystem } from 'src/dto/openai.dto';
 import drawBoundingBox from 'src/utils/drawBoundingBox';
 import { MyLogger } from 'src/utils/logging';
-import { imageToBase64 } from 'src/utils/openai';
+import { imageToBase64, promptInput } from 'src/utils/openai';
 import { sleep, waitForEvent } from 'src/utils/puppeteer';
+import OpenAI from 'openai';
+import dotenv from 'dotenv';
 
-const TIMEOUT = 4000;
-const DEBUG = false; // Sets puppeteer to show browser window
+dotenv.config();
 
 @Injectable()
 export class AgentService {
   private readonly logger = new MyLogger(AgentService.name);
-  imgFilePath: string;
+  private readonly timeout = 4000;
+  private readonly debug = false;
+  private readonly openai = new OpenAI();
+  private imgFilePath: string;
 
   /**
    * Creates an instance of the AgentService class.
@@ -43,7 +47,7 @@ export class AgentService {
 
     puppeteer.use(StealthPlugin());
     const browser = await puppeteer.launch({
-      headless: !DEBUG,
+      headless: !this.debug,
     });
 
     const page = await browser.newPage();
@@ -64,10 +68,13 @@ export class AgentService {
 
     await agentObj.page.goto(agentObj.url, {
       waitUntil: 'domcontentloaded',
-      timeout: TIMEOUT,
+      timeout: this.timeout,
     });
 
-    await Promise.race([waitForEvent(agentObj.page, 'load'), sleep(TIMEOUT)]);
+    await Promise.race([
+      waitForEvent(agentObj.page, 'load'),
+      sleep(this.timeout),
+    ]);
 
     await drawBoundingBox(agentObj.page);
 
@@ -158,7 +165,7 @@ export class AgentService {
         // Additional checks can be done here, like validating the response or URL
         await Promise.race([
           waitForEvent(agentObj.page, 'load'),
-          sleep(TIMEOUT),
+          sleep(this.timeout),
         ]);
 
         await drawBoundingBox(agentObj.page);
@@ -198,5 +205,57 @@ export class AgentService {
     agentObj.url = parts[0];
 
     this.logger.agent(`URL set to: ${agentObj.url}`);
+  };
+
+  /**
+   * Represents the main agent function.
+   * The agent interacts with the user by sending and receiving messages.
+   * It can browse URLs, take screenshots, click on links, and provide answers to the user's questions using OpenAI's GPT-4 Vision model.
+   * The agent logs all interactions to a log file.
+   *
+   * @returns {Promise<void>} A promise that resolves when the agent finishes its execution.
+   */
+  agent = async (): Promise<void> => {
+    var agentObj = await this.agentInit();
+
+    // log(LOG_FILE, YELLOW + 'Agent: How can I assist you today?' + RESET);
+    const prompt = await promptInput('You: ');
+    // log(LOG_FILE, 'You: ' + prompt + '\n');
+
+    agentObj.messages.push({ role: 'user', content: prompt });
+
+    while (true) {
+      if (agentObj.url) await this.browseURL(agentObj);
+
+      if (agentObj.screenshotTaken) await this.processScreenshot(agentObj);
+
+      const response = await this.openai.chat.completions.create({
+        model: 'gpt-4-vision-preview',
+        max_tokens: 1024,
+        messages: agentObj.messages,
+      });
+
+      const message = response.choices[0].message.content;
+
+      agentObj.messages.push({
+        role: 'assistant',
+        content: message,
+      });
+
+      // log(LOG_FILE, YELLOW + 'Agent: ' + message + RESET);
+
+      if (message.indexOf('{"click": "') !== -1) {
+        await this.handleClick(agentObj, message);
+        continue;
+      } else if (message.indexOf('{"url": "') !== -1) {
+        await this.getURL(agentObj, message);
+        continue;
+      }
+
+      const prompt = await promptInput('You: ');
+      // log(LOG_FILE, 'You: ' + prompt + '\n');
+
+      agentObj.messages.push({ role: 'user', content: prompt });
+    }
   };
 }
