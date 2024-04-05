@@ -107,4 +107,79 @@ export class AgentService {
     });
     agentObj.screenshotTaken = false;
   };
+
+  /**
+   * Handles the click event on a web page.
+   *
+   * @param {Object} agentObj - The agent object.
+   * @param {string} message - The message containing the click event details.
+   * @returns {Promise<void>} - A promise that resolves when the click event is handled.
+   * @throws {Error} - If the link cannot be found.
+   */
+  handleClick = async (agentObj: AgentDTO, message: string): Promise<void> => {
+    let parts = message.split('{"click": "');
+    parts = parts[1].split('"}');
+    const linkText = parts[0].replace(/[^a-zA-Z0-9 ]/g, '');
+
+    this.logger.agent(`Clicking on ${linkText}`);
+
+    try {
+      const elements = await agentObj.page.$$('[gpt-link-text]');
+
+      let partial;
+      let exact;
+
+      for (const element of elements) {
+        const attributeValue = await element.evaluate((el) =>
+          el.getAttribute('gpt-link-text'),
+        );
+
+        if (attributeValue.includes(linkText)) {
+          this.logger.agent(`Partial match found: ${attributeValue}`);
+          partial = element;
+        }
+
+        if (attributeValue === linkText) {
+          this.logger.agent(`Exact match found: ${attributeValue}`);
+          exact = element;
+        }
+      }
+
+      if (exact || partial) {
+        const [response] = await Promise.all([
+          agentObj.page
+            .waitForNavigation({ waitUntil: 'domcontentloaded' })
+            .catch((e) =>
+              this.logger.fail(`Navigation timeout/error: ${e.message}`),
+            ),
+          (exact || partial).click(),
+        ]);
+
+        // Additional checks can be done here, like validating the response or URL
+        await Promise.race([
+          waitForEvent(agentObj.page, 'load'),
+          sleep(TIMEOUT),
+        ]);
+
+        await drawBoundingBox(agentObj.page);
+
+        await agentObj.page.screenshot({
+          path: this.imgFilePath,
+          quality: 100,
+        });
+
+        agentObj.screenshotTaken = true;
+        this.logger.success('Screenshot saved!');
+      } else {
+        throw new Error('Cannot find link');
+      }
+    } catch (error) {
+      this.logger.fail(`Clicking failed: ${error}`);
+
+      agentObj.messages.push({
+        role: 'user',
+        content: 'ERROR: I was unable to click that element',
+      });
+    }
+  };
 }
