@@ -182,4 +182,21 @@ export class AgentService {
       });
     }
   };
+
+  /**
+   * Sets the URL property of the agentObj based on the provided message.
+   *
+   * @param {object} agentObj - The agent object to update.
+   * @param {string} message - The message containing the URL.
+   * @returns {Promise<void>} - A promise that resolves once the URL is set.
+   */
+  getURL = async (agentObj: AgentDTO, message: string): Promise<void> => {
+    this.logger.agent('Parsing URL...');
+
+    let parts = message.split('{"url": "');
+    parts = parts[1].split('"}');
+    agentObj.url = parts[0];
+
+    this.logger.agent(`URL set to: ${agentObj.url}`);
+  };
 }
