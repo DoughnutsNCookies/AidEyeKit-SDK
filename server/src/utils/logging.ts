@@ -1,7 +1,7 @@
-import fs from 'fs';
 import { RED, RESET } from './colors';
+import * as fs from 'fs';
 
-/** 
+/**
  * Logs a message to a log file and console.
  *
  * @param {string} logfile - The path to the log file.

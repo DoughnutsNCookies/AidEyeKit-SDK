@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { log } from '../utils/logging';
-import { RED, BLUE, GREEN, RESET } from '../utils/colors';
-import fs from 'fs';
+import { log } from 'src/utils/logging';
+import { RED, BLUE, GREEN, RESET } from 'src/utils/colors';
+import * as fs from 'fs';
+import { getCurrentTime } from 'src/utils/time';
 
 @Injectable()
 export class AgentService {
@@ -10,9 +11,7 @@ export class AgentService {
   logFilePath: string;
 
   constructor() {
-    log(this.logFilePath, BLUE + 'Creating logs...' + RESET);
-
-    this.currentTime = new Date().toISOString();
+    this.currentTime = getCurrentTime();
 
     // Directory to save screenshots
     const imgDir = 'images/';
