@@ -1,24 +1,21 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { RED, BLUE, GREEN, PURPLE, RESET } from './colors';
-import { getCurrentTime } from './time';
 import * as fs from 'fs';
+import { logFilePath } from 'src/dto/logging.dto';
 
 @Injectable()
 export class MyLogger extends ConsoleLogger {
-  private currentTime: string;
   private logFilePath: string;
 
   constructor(context?: string) {
     super(context);
-    this.currentTime = getCurrentTime();
-
     // Using date and time in the log file name
     const logDir = 'logs/';
     if (!fs.existsSync(logDir)) {
       fs.mkdirSync(logDir);
     }
 
-    this.logFilePath = `${logDir}log-${this.currentTime}.txt`;
+    this.logFilePath = logFilePath;
     fs.writeFileSync(this.logFilePath, '');
 
     this.success('Logs ready!');
