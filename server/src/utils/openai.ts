@@ -1,6 +1,6 @@
-import fs from 'fs';
+import * as fs from 'fs';
 import { RED, RESET } from './colors';
-import readline from 'readline';
+import * as readline from 'readline';
 
 /**
  * Converts an image file to a base64 data URI.
