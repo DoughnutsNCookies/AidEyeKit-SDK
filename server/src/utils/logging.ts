@@ -27,7 +27,7 @@ export class MyLogger extends ConsoleLogger {
         console.error(RED + 'Error writing to log file:' + err + RESET);
       }
     });
-    super.log(BLUE + message + RESET);
+    super.debug(BLUE + message + RESET);
   }
 
   success(message: string) {
@@ -36,7 +36,7 @@ export class MyLogger extends ConsoleLogger {
         console.error(RED + 'Error writing to log file:' + err + RESET);
       }
     });
-    super.log(GREEN + message + RESET);
+    super.debug(GREEN + message + RESET);
   }
 
   fail(message: string) {
@@ -45,7 +45,7 @@ export class MyLogger extends ConsoleLogger {
         console.error(RED + 'Error writing to log file:' + err + RESET);
       }
     });
-    super.error(RED + message + RESET);
+    super.debug(RED + message + RESET);
   }
 
   agent(message: string) {
@@ -54,7 +54,7 @@ export class MyLogger extends ConsoleLogger {
         console.error(RED + 'Error writing to log file:' + err + RESET);
       }
     });
-    super.error(PURPLE + message + RESET);
+    super.debug(PURPLE + message + RESET);
   }
 
   normal(message: string) {
