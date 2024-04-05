@@ -59,7 +59,7 @@ export class AgentService {
    * @param {Object} agentObj - The agent object containing the URL and other properties.
    * @returns {Promise<void>} - A promise that resolves when the screenshot is saved.
    */
-  browseURL = async (agentObj): Promise<void> => {
+  browseURL = async (agentObj: AgentDTO): Promise<void> => {
     this.logger.agent(`Browsing url: ${agentObj.url}`);
 
     await agentObj.page.goto(agentObj.url, {
