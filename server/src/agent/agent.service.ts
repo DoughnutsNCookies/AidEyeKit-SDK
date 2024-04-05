@@ -4,8 +4,11 @@ import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { AgentDTO } from 'src/dto/agent.dto';
 import { agentSystem } from 'src/dto/openai.dto';
+import drawBoundingBox from 'src/utils/drawBoundingBox';
 import { MyLogger } from 'src/utils/logging';
+import { sleep, waitForEvent } from 'src/utils/puppeteer';
 
+const TIMEOUT = 4000;
 const DEBUG = false; // Sets puppeteer to show browser window
 
 @Injectable()
@@ -47,5 +50,34 @@ export class AgentService {
 
     this.logger.success('Agent initialized successfully!');
     return new AgentDTO(page, browser, [agentSystem], null, false);
+  };
+
+  /**
+   * Browse the specified URL and take a screenshot of the page.
+   *
+   * @param {Object} agentObj - The agent object containing the URL and other properties.
+   * @returns {Promise<void>} - A promise that resolves when the screenshot is saved.
+   */
+  browseURL = async (agentObj): Promise<void> => {
+    this.logger.agent(`Browsing url: ${agentObj.url}`);
+
+    await agentObj.page.goto(agentObj.url, {
+      waitUntil: 'domcontentloaded',
+      timeout: TIMEOUT,
+    });
+
+    await Promise.race([waitForEvent(agentObj.page, 'load'), sleep(TIMEOUT)]);
+
+    await drawBoundingBox(agentObj.page);
+
+    await agentObj.page.screenshot({
+      path: this.imgFilePath,
+      quality: 100,
+    });
+
+    agentObj.screenshotTaken = true;
+    agentObj.url = null;
+
+    this.logger.success('Screenshot saved!');
   };
 }
