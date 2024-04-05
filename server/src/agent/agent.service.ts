@@ -218,9 +218,9 @@ export class AgentService {
   agent = async (): Promise<void> => {
     var agentObj = await this.agentInit();
 
-    // log(LOG_FILE, YELLOW + 'Agent: How can I assist you today?' + RESET);
+    this.logger.agent('How can I assist you today?');
     const prompt = await promptInput('You: ');
-    // log(LOG_FILE, 'You: ' + prompt + '\n');
+    this.logger.normal('You: ' + prompt + '\n');
 
     agentObj.messages.push({ role: 'user', content: prompt });
 
@@ -241,8 +241,7 @@ export class AgentService {
         role: 'assistant',
         content: message,
       });
-
-      // log(LOG_FILE, YELLOW + 'Agent: ' + message + RESET);
+      this.logger.agent('Agent: ' + message);
 
       if (message.indexOf('{"click": "') !== -1) {
         await this.handleClick(agentObj, message);
@@ -253,7 +252,7 @@ export class AgentService {
       }
 
       const prompt = await promptInput('You: ');
-      // log(LOG_FILE, 'You: ' + prompt + '\n');
+      this.logger.normal('You: ' + prompt + '\n');
 
       agentObj.messages.push({ role: 'user', content: prompt });
     }
