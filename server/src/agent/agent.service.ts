@@ -3,9 +3,10 @@ import * as fs from 'fs';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import { AgentDTO } from 'src/dto/agent.dto';
-import { agentSystem } from 'src/dto/openai.dto';
+import { agentScreenshotPrompt, agentSystem } from 'src/dto/openai.dto';
 import drawBoundingBox from 'src/utils/drawBoundingBox';
 import { MyLogger } from 'src/utils/logging';
+import { imageToBase64 } from 'src/utils/openai';
 import { sleep, waitForEvent } from 'src/utils/puppeteer';
 
 const TIMEOUT = 4000;
@@ -79,5 +80,31 @@ export class AgentService {
     agentObj.url = null;
 
     this.logger.success('Screenshot saved!');
+  };
+
+  /**
+   * Processes the screenshot and adds it to the agent's messages.
+   *
+   * @param {object} agentObj - The agent object.
+   * @returns {Promise<void>} - A promise that resolves when the screenshot is processed.
+   */
+  processScreenshot = async (agentObj: AgentDTO): Promise<void> => {
+    this.logger.agent('Processing screenshot...');
+
+    const base64 = await imageToBase64(this.imgFilePath + 'screenshot.jpg');
+    agentObj.messages.push({
+      role: 'user',
+      content: [
+        {
+          type: 'image_url',
+          image_url: base64,
+        },
+        {
+          type: 'text',
+          text: agentScreenshotPrompt,
+        },
+      ],
+    });
+    agentObj.screenshotTaken = false;
   };
 }
