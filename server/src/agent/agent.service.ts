@@ -10,6 +10,7 @@ import { imageToBase64, promptInput } from 'src/utils/openai';
 import { sleep, waitForEvent } from 'src/utils/puppeteer';
 import OpenAI from 'openai';
 import * as dotenv from 'dotenv';
+import { ElementHandle } from 'puppeteer';
 
 dotenv.config();
 
@@ -133,8 +134,8 @@ export class AgentService {
     try {
       const elements = await agentObj.page.$$('[gpt-link-text]');
 
-      let partial;
-      let exact;
+      let partial: ElementHandle<Element>;
+      let exact: ElementHandle<Element>;
 
       for (const element of elements) {
         const attributeValue = await element.evaluate((el) =>
