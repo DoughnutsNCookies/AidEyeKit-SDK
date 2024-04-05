@@ -1,17 +1,16 @@
 import { Browser, Page } from 'puppeteer';
-import { OpenAIMessage } from './openai.dto';
 
 export class AgentDTO {
   page: Page;
   browser: Browser;
-  messages: OpenAIMessage[];
+  messages: any;
   url: string;
   screenshotTaken: boolean;
 
   constructor(
     page: Page,
     browser: Browser,
-    messages: OpenAIMessage[],
+    messages: any,
     url: string,
     screenshotTaken: boolean,
   ) {
