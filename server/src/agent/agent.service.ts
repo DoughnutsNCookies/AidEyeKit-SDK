@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import * as puppeteer from 'puppeteer';
 import { AgentDTO } from 'src/dto/agent.dto';
 import { agentScreenshotPrompt, agentSystem } from 'src/dto/openai.dto';
 import drawBoundingBox from 'src/utils/drawBoundingBox';
@@ -46,7 +45,6 @@ export class AgentService {
   agentInit = async (): Promise<AgentDTO> => {
     this.logger.begin('Initializing agent...');
 
-    puppeteer.use(StealthPlugin());
     const browser = await puppeteer.launch({
       headless: !this.debug,
     });
@@ -99,7 +97,7 @@ export class AgentService {
   processScreenshot = async (agentObj: AgentDTO): Promise<void> => {
     this.logger.agent('Processing screenshot...');
 
-    const base64 = await imageToBase64(this.imgFilePath + 'screenshot.jpg');
+    const base64 = await imageToBase64(this.imgFilePath);
     agentObj.messages.push({
       role: 'user',
       content: [
