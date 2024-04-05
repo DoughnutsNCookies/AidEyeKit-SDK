@@ -1,20 +1,62 @@
-import { RED, RESET } from './colors';
+import { ConsoleLogger, Injectable } from '@nestjs/common';
+import { RED, BLUE, GREEN, PURPLE, RESET } from './colors';
+import { getCurrentTime } from './time';
 import * as fs from 'fs';
 
-/**
- * Logs a message to a log file and console.
- *
- * @param {string} logfile - The path to the log file.
- * @param {string} message - The message to be logged.
- * @returns {Promise<void>} - A promise that resolves when the message is logged.
- */
-export const log = async (logfile: string, message: string) => {
-  const rawMessage = message.replace(/\x1b\[\d{1,2}m/g, '');
+@Injectable()
+export class MyLogger extends ConsoleLogger {
+  private currentTime: string;
+  private logFilePath: string;
 
-  fs.appendFile(logfile, rawMessage + '\n', (err) => {
-    if (err) {
-      console.error(RED + 'Error writing to log file:' + err + RESET);
+  constructor(context?: string) {
+    super(context);
+    this.currentTime = getCurrentTime();
+
+    // Using date and time in the log file name
+    const logDir = 'logs/';
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir);
     }
-  });
-  console.log(message);
-};
+
+    this.logFilePath = `${logDir}log-${this.currentTime}.txt`;
+    fs.writeFileSync(this.logFilePath, '');
+
+    this.success('Logs ready!');
+  }
+
+  begin(message: string) {
+    fs.appendFile(this.logFilePath, message + '\n', (err) => {
+      if (err) {
+        console.error(RED + 'Error writing to log file:' + err + RESET);
+      }
+    });
+    super.log(BLUE + message + RESET);
+  }
+
+  success(message: string) {
+    fs.appendFile(this.logFilePath, message + '\n', (err) => {
+      if (err) {
+        console.error(RED + 'Error writing to log file:' + err + RESET);
+      }
+    });
+    super.log(GREEN + message + RESET);
+  }
+
+  fail(message: string) {
+    fs.appendFile(this.logFilePath, message + '\n', (err) => {
+      if (err) {
+        console.error(RED + 'Error writing to log file:' + err + RESET);
+      }
+    });
+    super.error(RED + message + RESET);
+  }
+
+  agent(message: string) {
+    fs.appendFile(this.logFilePath, message + '\n', (err) => {
+      if (err) {
+        console.error(RED + 'Error writing to log file:' + err + RESET);
+      }
+    });
+    super.error(PURPLE + message + RESET);
+  }
+}
