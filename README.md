@@ -1,2 +1,2 @@
-# SolanaRenaissanceHackathon-AidEyeChat
-Code repository for Solana Renaissance Hackathon submission
+# AidEyeChat-SDK
+Code repository for AidEyeChat SDK and API server
