@@ -17,6 +17,6 @@ export class ChatService {
   }
 
   handleMessage(server: Server, client: any, message: string): void {
-    this.agentService.agent(server, message);
+    this.agentService.agent(server, client, message);
   }
 }

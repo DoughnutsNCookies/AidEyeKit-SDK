@@ -215,7 +215,11 @@ export class AgentService {
    *
    * @returns {Promise<void>} A promise that resolves when the agent finishes its execution.
    */
-  agent = async (server: Server, prompt: string): Promise<void> => {
+  agent = async (
+    server: Server,
+    client: any,
+    prompt: string,
+  ): Promise<void> => {
     var agentObj = await this.agentInit();
     this.logger.normal('You: ' + prompt + '\n');
 
@@ -242,14 +246,15 @@ export class AgentService {
 
       if (message.indexOf('{"click": "') !== -1) {
         await this.handleClick(agentObj, message);
-        // continue;
+        continue;
       } else if (message.indexOf('{"url": "') !== -1) {
         await this.getURL(agentObj, message);
-        // continue;
+        continue;
       } else {
-        break;
       }
 
+      client.disconnect();
+      break;
       // const prompt = await promptInput('You: ');
       // this.logger.normal('You: ' + prompt + '\n');
 
