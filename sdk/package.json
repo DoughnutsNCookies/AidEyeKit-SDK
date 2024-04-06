@@ -1,7 +1,7 @@
 {
-  "name": "@aideyechat-dev/sdk",
+  "name": "@aideyekit-dev/sdk",
   "version": "1.0.0",
-  "description": "AidEyeChat is an Open-source UI SDK which allows app developers to create in-app guides for users",
+  "description": "AidEyeKit is an Open-source UI SDK which allows app developers to create in-app guides for users",
   "main": "dist/index.js",
   "module": "dist/index.m.js",
   "unpkg": "dist/index.umd.js",

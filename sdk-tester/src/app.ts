@@ -1,10 +1,10 @@
-import AidEyeSDK from "@aideyechat-dev/sdk";
+import AidEyeSDK from "@aideyekit-dev/sdk";
 
 const aidEyeSDK = new AidEyeSDK("apiKey");
 
-const aidEyeChat = aidEyeSDK.chat();
+const aidEyeKit = aidEyeSDK.chat();
 
 const question = "What is your name?";
-const response = aidEyeChat.ask(question);
+const response = aidEyeKit.ask(question);
 
-aidEyeChat.guide(response);
+aidEyeKit.guide(response);

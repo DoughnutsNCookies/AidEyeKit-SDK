@@ -2,7 +2,7 @@ import fetch from "isomorphic-unfetch";
 
 export abstract class Base {
   private apiKey: string;
-  private baseUrl = "https://api.aideyechat.com";
+  private baseUrl = "https://api.aideyekit.com";
 
   constructor(apiKey: string) {
     this.apiKey = apiKey;

@@ -1,2 +1,3 @@
-# AidEyeChat-SDK
-Code repository for AidEyeChat SDK and API server
+# AidEyeKit-SDK
+
+Code repository for AidEyeKit SDK and API server
