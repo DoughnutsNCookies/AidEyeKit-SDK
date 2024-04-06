@@ -5,13 +5,9 @@ import {
   getQuotedTexts,
 } from "@virtual-protocol/react-virtual-ai";
 import { useState } from "react";
-import initAccessToken from "./utils/initAccessToken";
 
 export default function Home() {
   const [messages, setMessages] = useState<string[]>([]);
-
-  const res = initAccessToken(1);
-  console.log(res);
 
   return (
     <main className="h-screen">
@@ -20,9 +16,9 @@ export default function Home() {
         virtualName="Lady"
         virtualId={1}
         metadata={{
-          apiKey: "lgHhe1rUocPRfSQpahWj",
-          apiSecret: "711D4ILb4zZcFs9uzSN6PRBnj3QmclrNTOh",
-          userUid: "1",
+          apiKey: process.env.VIRTUAL_KEY,
+          apiSecret: process.env.VIRTUAL_PRIVATE,
+          userUid: "1", // any unique user identifier that will be used for runner memory core to remember conversations
           userName: "User",
         }}
         onUserMessageCreated={async (v) => {
