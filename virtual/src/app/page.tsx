@@ -5,9 +5,13 @@ import {
   getQuotedTexts,
 } from "@virtual-protocol/react-virtual-ai";
 import { useState } from "react";
+import initAccessToken from "./utils/initAccessToken";
 
 export default function Home() {
   const [messages, setMessages] = useState<string[]>([]);
+
+  const res = initAccessToken(1);
+  console.log(res);
 
   return (
     <main className="h-screen">
