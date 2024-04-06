@@ -4,7 +4,7 @@ const aidEyeSDK = new AidEyeSDK("apiKey");
 
 const aidEyeKit = aidEyeSDK.chat();
 
-const question = "What is your name?";
+const question = "How to swtich to Solana Testnet with the Phantom Wallet App?";
 const response = aidEyeKit.ask(question);
 
 aidEyeKit.guide(response);
