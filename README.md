@@ -1,48 +1,64 @@
-# **AidEyeKit-SDK**
+# AidEyeKit-SDK
 
-Code repository for AidEyeKit SDK and API server
+AidEyeKit is an open-source toolkit that enables app makers to create visual guides within apps. Our goal is to make all apps user-friendly.
 
+## Building the SDK
 
-## **Figma**
-___
-`PS: Tap anywhere on the product screen to see on-screen guidance. A blue highlight box will appear.`
+To build the SDK, navigate to the `sdk` folder and run the following command:
 
-`Product Demo (Using Phantom App)`
+```sh
+bun run build
+```
 
-Check out the [demo] (https://www.figma.com/proto/ZdSevO9j90CBKXqT8avLBL/Prototype?type=design&node-id=470-535&t=0U4vbv3FOoAvcPMk-0&scaling=scale-down&page-id=0%3A1&starting-point-node-id=470%3A535&show-proto-sidebar=1) for more information
+## Testing the SDK
 
-Instructions
-1. Tap AidEyeKit's logo
-2. Tap "Switch Solana Network"
-3. Tap "Show Me"
-4. Just follow the on screen instructions from now on :)
+To test the SDK, navigate to the `sdk-tester` folder, and link the original SDK to the tester SDK by running the following command:
 
-`Crypto Payment Integration Demo (Uber Merchant App)`
+```sh
+bun run link
+```
 
-Check out the [demo] (https://www.figma.com/proto/ZdSevO9j90CBKXqT8avLBL/Prototype?type=design&node-id=635-546&t=0U4vbv3FOoAvcPMk-0&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=635%3A546&show-proto-sidebar=1) for more information
+Then, run the following command to test the SDK:
 
-Instructions
-1. Tap "SPay (Crypto)"
-2. Tap "Open App"
-3. Tap "Approve"
-4. Wait for the transaction to complete
+```sh
+bun run test
+```
 
-`AidEyeKit Assistant App`
+## Running the Backend Server
 
-Check out the [demo] (https://www.figma.com/proto/ZdSevO9j90CBKXqT8avLBL/Prototype?type=design&node-id=470-480&t=0U4vbv3FOoAvcPMk-0&scaling=min-zoom&page-id=0%3A1&starting-point-node-id=470%3A480&show-proto-sidebar=1) for more information
+First setup your `.env` file in the `server` folder. You can use the `.env.example` file as a template.
 
-Instructions
-1. Tap "Use Phantom App"
-2. Type "yes" (all lowercase)
-3. Press Enter or click the arrow
-4. Type "convert this to pdf" (all lowercase)
-5. Press Enter or click the arrow
+This server uses OpenAI's GPT-4 Vision API, so you will need to get an API key from OpenAI and include it in the `.env` file.
 
-<br>
+```
+OPENAI_API_KEY=your_api_key
+```
 
-## **SDK**
-___
+To run the backend server, navigate to the `server` folder and install the dependencies by running the following command:
 
+```sh
+bun install
+```
 
-___
-Work with @nuyiep
+To run the server in development mode, run the following command:
+
+```sh
+bun run start:dev
+```
+
+To run the server in production mode, first build the server by running the following command:
+
+```sh
+bun run build
+```
+
+Then, run the server by running the following command:
+
+```sh
+bun run start
+```
+
+## Team Members
+
+[@DoughnutsNCookies](https://www.github.com/DoughnutsNCookies)
+[@nuyiep](https://www.github.com/nuyiep)
