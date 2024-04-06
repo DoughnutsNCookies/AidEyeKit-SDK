@@ -10,6 +10,7 @@ import { sleep, waitForEvent } from 'src/utils/puppeteer';
 import OpenAI from 'openai';
 import * as dotenv from 'dotenv';
 import { ElementHandle } from 'puppeteer';
+import { Server } from 'socket.io';
 
 dotenv.config();
 
@@ -214,18 +215,14 @@ export class AgentService {
    *
    * @returns {Promise<void>} A promise that resolves when the agent finishes its execution.
    */
-  agent = async (): Promise<void> => {
+  agent = async (server: Server, prompt: string): Promise<void> => {
     var agentObj = await this.agentInit();
-
-    this.logger.agent('How can I assist you today?');
-    const prompt = await promptInput('You: ');
     this.logger.normal('You: ' + prompt + '\n');
 
     agentObj.messages.push({ role: 'user', content: prompt });
 
     while (true) {
       if (agentObj.url) await this.browseURL(agentObj);
-
       if (agentObj.screenshotTaken) await this.processScreenshot(agentObj);
 
       const response = await this.openai.chat.completions.create({
@@ -241,19 +238,22 @@ export class AgentService {
         content: message,
       });
       this.logger.agent('Agent: ' + message);
+      server.to('chat').emit('chat', `Agent: ${message}`);
 
       if (message.indexOf('{"click": "') !== -1) {
         await this.handleClick(agentObj, message);
-        continue;
+        // continue;
       } else if (message.indexOf('{"url": "') !== -1) {
         await this.getURL(agentObj, message);
-        continue;
+        // continue;
+      } else {
+        break;
       }
 
-      const prompt = await promptInput('You: ');
-      this.logger.normal('You: ' + prompt + '\n');
+      // const prompt = await promptInput('You: ');
+      // this.logger.normal('You: ' + prompt + '\n');
 
-      agentObj.messages.push({ role: 'user', content: prompt });
+      // agentObj.messages.push({ role: 'user', content: prompt });
     }
   };
 }
