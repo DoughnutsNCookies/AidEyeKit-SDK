@@ -14,7 +14,6 @@ import {
   getAssociatedTokenAddress,
   getMint,
 } from '@solana/spl-token';
-import { TEN } from '@solana/pay/src/constants';
 
 @Injectable()
 export class PayService {
@@ -83,7 +82,7 @@ async function createSplTransferIx(sender, connection) {
 
   let amount = calculateCheckoutAmount();
   amount = amount
-    .times(TEN.pow(mint.decimals))
+    .times(new BigNumber(10).pow(mint.decimals))
     .integerValue(BigNumber.ROUND_FLOOR);
 
   const tokens = BigInt(String(amount));
