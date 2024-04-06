@@ -34,15 +34,21 @@ bun run test
 
 ## Running the Backend Server
 
-First setup your `.env` file in the `server` folder. You can use the `.env.example` file as a template.
+This server uses OpenAI's GPT-4 Vision API, so you will need to get an API key from OpenAI.
 
-This server uses OpenAI's GPT-4 Vision API, so you will need to get an API key from OpenAI and include it in the `.env` file.
+### Setting up the server
+
+Navigate to the `server` folder and setup your `.env` file in the `server` folder. You can use the `.env.example` file as a template.
+
+Paste your OpenAI API key in the `.env` file like this:
 
 ```
 OPENAI_API_KEY=your_api_key
 ```
 
-To run the backend server, navigate to the `server` folder and install the dependencies by running the following command:
+### Running the server
+
+Before running the backend server, install the dependencies by running the following command:
 
 ```sh
 bun install
