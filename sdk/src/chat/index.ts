@@ -3,6 +3,6 @@ import ChatBot from "./ChatBot";
 
 export class Chat extends Base {
   chat(): ChatBot {
-    return new ChatBot();
+    return new ChatBot(this.baseUrl);
   }
 }
