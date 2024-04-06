@@ -8,6 +8,8 @@ AidEyeKit is a toolkit that consists of an SDK and a backend server. The SDK is 
 
 This project uses Puppeteer and OpenAI's GPT-4 Vision together. Puppeteer first opens the app and takes a screenshot. The screenshot is then sent to OpenAI's GPT-4 Vision to decide which elements it should click to achieve the goal. After the click, another screenshot is taken which repeats the process until the AI reaches the desired goal of the visual guide.
 
+<img src="github/FlowChart.png" alt="AidEyeKit Workflow Diagram">
+
 ## Building the SDK
 
 To build the SDK, navigate to the `sdk` folder and run the following command:
