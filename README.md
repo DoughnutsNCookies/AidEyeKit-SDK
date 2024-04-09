@@ -78,7 +78,14 @@ Then, run the server by running the following command:
 bun run start
 ```
 
-## Team Members
+## Social Medias
+
+- Website: [aideyekit.com](https://aideyekit.com)
+- Twitter: [twitter.com/AidEyeKit](https://twitter.com/AidEyeKit)
+- Facebook: [facebook.com/AidEyeKit](https://www.facebook.com/AidEyeKit)
+- LinkedIn: [linkedin.com/company/aideyekit](https://www.linkedin.com/company/aideyekit)
+
+## Authors
 
 [@DoughnutsNCookies](https://www.github.com/DoughnutsNCookies)
 [@nuyiep](https://www.github.com/nuyiep)
