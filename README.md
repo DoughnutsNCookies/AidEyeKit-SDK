@@ -1,4 +1,4 @@
-# AidEyeKit-SDK
+![Text Logo](https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/65ab4119-21a6-4372-ad7c-d6e05428bf14)
 
 AidEyeKit is an open-source toolkit that enables app makers to create visual guides within apps. Our goal is to make all apps user-friendly.
 
