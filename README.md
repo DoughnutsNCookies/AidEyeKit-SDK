@@ -6,9 +6,15 @@ AidEyeKit is an open-source toolkit that enables app makers to create visual gui
 
 For a more detailed demo with voiceover, click [here](https://youtu.be/gc_1hvezhbc)
 
+### SDK in Phantom App Example
+
 https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/85c9f010-68ec-401b-94bc-b4244e4418d5
 
+### AidEyeKit Assistant App
+
 https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/bb96c83b-8408-40bd-86fc-3f486552923d
+
+### Crypto Payment Integration using Solana Pay
 
 https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/22637560-4138-4aa7-8e81-e6fe0fe9f0d7
 
