@@ -8,9 +8,7 @@ For a more detailed demo with voiceover, click [here](https://youtu.be/gc_1hvezh
 
 ### SDK in Phantom App Example
 
-<video width="320" height="240" controls>
-	<source src="https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/85c9f010-68ec-401b-94bc-b4244e4418d5" type="video/mov">
-</video>
+[![SDK in Phantom App Example](https://i.stack.imgur.com/Vp2cE.png)](https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/85c9f010-68ec-401b-94bc-b4244e4418d5)
 
 https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/85c9f010-68ec-401b-94bc-b4244e4418d5
 
