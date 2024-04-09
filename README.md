@@ -1,11 +1,10 @@
 # AidEyeKit-SDK
+
 ![Text Logo](https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/7ce1cc9d-397c-425c-9153-c9c5cbd039a1)
 
 AidEyeKit is an open-source toolkit that enables app makers to create visual guides within apps. Our goal is to make all apps user-friendly.
 
 ## Demo
-
-https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/9ed37a1d-359e-48af-b425-3d87e2371503
 
 ## How it works
 
@@ -43,7 +42,7 @@ This server uses OpenAI's GPT-4 Vision API, so you will need to get an API key f
 
 ### Setting up the server
 
-Navigate to the `server` folder and setup your `.env` file in the `server` folder. You can use the `.env.example` file as a template.
+Navigate to the `server` folder and set up your `.env` file in the `server` folder. You can use the `.env.example` file as a template.
 
 Paste your OpenAI API key in the `.env` file like this:
 
