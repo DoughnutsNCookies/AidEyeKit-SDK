@@ -4,7 +4,7 @@ AidEyeKit is an open-source toolkit that enables app makers to create visual gui
 
 ## Demo
 
-For a more detailed demo with voiceover, click [here](https://youtu.be/gc_1hvezhbc)
+For a more detailed demo with voiceover, click [here](https://youtu.be/gc_1hvezhbc).
 
 https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/85c9f010-68ec-401b-94bc-b4244e4418d5
 
