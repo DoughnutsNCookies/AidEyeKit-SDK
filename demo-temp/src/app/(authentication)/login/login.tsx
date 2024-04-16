@@ -1,18 +1,19 @@
 'use client'
 
 import {
-  Alert, Button, Form, FormControl, InputGroup,
+  Alert, Button, Col, Form, FormControl, InputGroup, Row,
 } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons'
+import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/navigation'
 import { SyntheticEvent, useState } from 'react'
 import { deleteCookie, getCookie } from 'cookies-next'
 import axios from 'axios'
+import Link from 'next/link'
 import InputGroupText from 'react-bootstrap/InputGroupText'
 
-export default function Register() {
+export default function Login() {
   const router = useRouter()
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -27,7 +28,7 @@ export default function Register() {
     return '/'
   }
 
-  const register = async (e: SyntheticEvent) => {
+  const login = async (e: SyntheticEvent) => {
     e.stopPropagation()
     e.preventDefault()
 
@@ -49,35 +50,39 @@ export default function Register() {
 
   return (
     <>
-      <Alert variant="danger" show={error !== ''} onClose={() => setError('')} dismissible>{error}</Alert>
-      <Form onSubmit={register}>
+      <Alert
+        variant="danger"
+        show={error !== ''}
+        onClose={() => setError('')}
+        dismissible
+      >
+        {error}
+      </Alert>
+      <Form onSubmit={login}>
         <InputGroup className="mb-3">
-          <InputGroupText><FontAwesomeIcon icon={faUser} fixedWidth /></InputGroupText>
+          <InputGroupText>
+            <FontAwesomeIcon
+              icon={faUser}
+              fixedWidth
+            />
+          </InputGroupText>
           <FormControl
             name="username"
             required
             disabled={submitting}
             placeholder="Username"
             aria-label="Username"
+            defaultValue="Username"
           />
         </InputGroup>
 
         <InputGroup className="mb-3">
           <InputGroupText>
-            <FontAwesomeIcon icon={faEnvelope} fixedWidth />
+            <FontAwesomeIcon
+              icon={faLock}
+              fixedWidth
+            />
           </InputGroupText>
-          <FormControl
-            type="email"
-            name="email"
-            required
-            disabled={submitting}
-            placeholder="Email"
-            aria-label="Email"
-          />
-        </InputGroup>
-
-        <InputGroup className="mb-3">
-          <InputGroupText><FontAwesomeIcon icon={faLock} fixedWidth /></InputGroupText>
           <FormControl
             type="password"
             name="password"
@@ -85,24 +90,28 @@ export default function Register() {
             disabled={submitting}
             placeholder="Password"
             aria-label="Password"
+            defaultValue="Password"
           />
         </InputGroup>
 
-        <InputGroup className="mb-3">
-          <InputGroupText><FontAwesomeIcon icon={faLock} fixedWidth /></InputGroupText>
-          <FormControl
-            type="password"
-            name="password_repeat"
-            required
-            disabled={submitting}
-            placeholder="Repeat password"
-            aria-label="Repeat password"
-          />
-        </InputGroup>
-
-        <Button type="submit" className="d-block w-100" disabled={submitting} variant="success">
-          Create Account
-        </Button>
+        <Row className="align-items-center">
+          <Col xs={6}>
+            <Button
+              className="px-4"
+              variant="primary"
+              type="submit"
+              disabled={submitting}
+            >
+              Login
+            </Button>
+          </Col>
+          <Col xs={6} className="text-end">
+            <Link className="px-0" href="#">
+              Forgot
+              password?
+            </Link>
+          </Col>
+        </Row>
       </Form>
     </>
   )
