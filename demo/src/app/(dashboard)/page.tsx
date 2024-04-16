@@ -1,9 +1,10 @@
+"use client"
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faArrowDown,
   faArrowUp,
-  faDownload,
+  faRobot,
   faEllipsisVertical,
   faMars,
   faSearch,
@@ -39,8 +40,33 @@ import IncomeChart from '@/components/Dashboard/IncomeChart'
 import ConversionChart from '@/components/Dashboard/ConversionChart'
 import SessionChart from '@/components/Dashboard/SessionChart'
 import TrafficChart from '@/components/Dashboard/TrafficChart'
+import OpenAI from 'openai'
+
+
 
 export default function Page() {
+  const ai = async () => {
+    const OPENAI = new OpenAI({
+      apiKey: process.env.NEXT_PUBLIC_OPENAI_KEY,
+      dangerouslyAllowBrowser: true,
+    });
+    const response = await OPENAI.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      max_tokens: 1024,
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant."
+        },
+        {
+          role: "user",
+          content: "What is 2 + 2?"
+        }
+      ]
+    })
+    console.log(response);
+  }
+
   return (
     <>
       <div className="row">
@@ -233,8 +259,8 @@ export default function Page() {
                 />
                 <label className="btn btn-outline-secondary" htmlFor="option3">Year</label>
               </ButtonGroup>
-              <Button variant="primary">
-                <FontAwesomeIcon icon={faDownload} fixedWidth />
+              <Button variant="primary" onClick={ai}>
+                <FontAwesomeIcon icon={faRobot} fixedWidth />
               </Button>
             </div>
           </div>
