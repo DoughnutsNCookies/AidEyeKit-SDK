@@ -1,0 +1,121 @@
+import { Button, Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
+import React from "react";
+import { FeedbackIcon } from "../icons/navbar/feedback-icon";
+import { GithubIcon } from "../icons/navbar/github-icon";
+import { SupportIcon } from "../icons/navbar/support-icon";
+import { SearchIcon } from "../icons/searchicon";
+import { BurguerButton } from "./burguer-button";
+import { NotificationsDropdown } from "./notifications-dropdown";
+import { UserDropdown } from "./user-dropdown";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
+
+interface Props {
+  children: React.ReactNode;
+}
+
+export const NavbarWrapper = ({ children }: Props) => {
+	const guide = () => {
+		const driverObj = driver({
+			showProgress: true,
+			steps: [
+				{
+					popover: {
+						title: 'Welcome!',
+						description: 'This guide will help you to get started with the dashboard.',
+					}
+				},
+				{
+					element: '#sidebar',
+					popover: {
+						title: 'Sidebar',
+						description: 'This is the sidebar, where you can navigate through the dashboard.',
+					}
+				},
+				{
+					element: "#balance",
+					popover: {
+						title: 'Balance',
+						description: 'Here you can see the available balance and some statistics.',
+					}
+				},
+				{
+					element: "#chart",
+					popover: {
+						title: 'Statistics',
+						description: 'This is a chart with some statistics.',
+					}
+				},
+				{
+					element: "#section",
+					popover: {
+						title: 'Section',
+						description: 'Here you can see the agents and latest transactions.',
+					}
+				},
+				{
+					element: "#users",
+					popover: {
+						title: 'Latest Users',
+						description: 'Here you can see the latest users and their accounts.',
+					}
+				}
+			]
+		});
+		
+		driverObj.drive();
+	}
+
+  return (
+    <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+      <Navbar
+        isBordered
+        className="w-full"
+        classNames={{
+          wrapper: "w-full max-w-full",
+        }}
+      >
+        <NavbarContent className="md:hidden">
+          <BurguerButton />
+        </NavbarContent>
+        <NavbarContent className="w-full max-md:hidden">
+          <Input
+            startContent={<SearchIcon />}
+            isClearable
+            className="w-full"
+            classNames={{
+              input: "w-full",
+              mainWrapper: "w-full",
+            }}
+            placeholder="Search..."
+          />
+        </NavbarContent>
+        <NavbarContent
+          justify="end"
+          className="w-fit data-[justify=end]:flex-grow-0"
+        >
+          <Button onClick={guide} color="primary" className="flex items-center gap-2 max-md:hidden">
+            Guide Me
+          </Button>
+
+          <NotificationsDropdown />
+
+          <div className="max-md:hidden">
+            <SupportIcon />
+          </div>
+
+          <Link
+            href="https://github.com/Siumauricio/nextui-dashboard-template"
+            target={"_blank"}
+          >
+            <GithubIcon />
+          </Link>
+          <NavbarContent>
+            <UserDropdown />
+          </NavbarContent>
+        </NavbarContent>
+      </Navbar>
+      {children}
+    </div>
+  );
+};
