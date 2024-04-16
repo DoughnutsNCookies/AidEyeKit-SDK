@@ -1,7 +1,5 @@
-import { Button, Input, Link, Navbar, NavbarContent } from "@nextui-org/react";
+import { Button, Input, Navbar, NavbarContent } from "@nextui-org/react";
 import React from "react";
-import { FeedbackIcon } from "../icons/navbar/feedback-icon";
-import { GithubIcon } from "../icons/navbar/github-icon";
 import { SupportIcon } from "../icons/navbar/support-icon";
 import { SearchIcon } from "../icons/searchicon";
 import { BurguerButton } from "./burguer-button";
@@ -94,22 +92,15 @@ export const NavbarWrapper = ({ children }: Props) => {
           justify="end"
           className="w-fit data-[justify=end]:flex-grow-0"
         >
-          <Button onClick={guide} color="primary" className="flex items-center gap-2 max-md:hidden">
-            Guide Me
-          </Button>
-
-          <NotificationsDropdown />
+					<NotificationsDropdown />
 
           <div className="max-md:hidden">
             <SupportIcon />
-          </div>
+					</div>
+					<Button onClick={guide} color="primary" className="flex items-center gap-2">
+						Guide Me
+					</Button>
 
-          <Link
-            href="https://github.com/Siumauricio/nextui-dashboard-template"
-            target={"_blank"}
-          >
-            <GithubIcon />
-          </Link>
           <NavbarContent>
             <UserDropdown />
           </NavbarContent>
