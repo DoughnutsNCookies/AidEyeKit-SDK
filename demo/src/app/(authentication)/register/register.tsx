@@ -1,58 +1,65 @@
-'use client'
+"use client";
 
-import {
-  Alert, Button, Form, FormControl, InputGroup,
-} from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faUser } from '@fortawesome/free-regular-svg-icons'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
-import { useRouter } from 'next/navigation'
-import { SyntheticEvent, useState } from 'react'
-import { deleteCookie, getCookie } from 'cookies-next'
-import axios from 'axios'
-import InputGroupText from 'react-bootstrap/InputGroupText'
+import { Alert, Button, Form, FormControl, InputGroup } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope, faUser } from "@fortawesome/free-regular-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
+import { SyntheticEvent, useState } from "react";
+import { deleteCookie, getCookie } from "cookies-next";
+import axios from "axios";
+import InputGroupText from "react-bootstrap/InputGroupText";
 
 export default function Register() {
-  const router = useRouter()
-  const [submitting, setSubmitting] = useState(false)
-  const [error, setError] = useState('')
+  const router = useRouter();
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const getRedirect = () => {
-    const redirect = getCookie('redirect')
+    const redirect = getCookie("redirect");
     if (redirect) {
-      deleteCookie('redirect')
-      return redirect.toString()
+      deleteCookie("redirect");
+      return redirect.toString();
     }
 
-    return '/'
-  }
+    return "/";
+  };
 
   const register = async (e: SyntheticEvent) => {
-    e.stopPropagation()
-    e.preventDefault()
+    e.stopPropagation();
+    e.preventDefault();
 
-    setSubmitting(true)
+    setSubmitting(true);
 
     try {
-      const res = await axios.post('api/mock/login')
+      const res = await axios.post("api/mock/login");
       if (res.status === 200) {
-        router.push(getRedirect())
+        router.push(getRedirect());
       }
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message)
+        setError(err.message);
       }
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
-  }
+  };
 
   return (
     <>
-      <Alert variant="danger" show={error !== ''} onClose={() => setError('')} dismissible>{error}</Alert>
+      <Alert
+        variant="danger"
+        show={error !== ""}
+        onClose={() => setError("")}
+        dismissible
+      >
+        {error}
+      </Alert>
       <Form onSubmit={register}>
-        <InputGroup className="mb-3">
-          <InputGroupText><FontAwesomeIcon icon={faUser} fixedWidth /></InputGroupText>
+        <InputGroup id="user" className="mb-3">
+          <InputGroupText>
+            <FontAwesomeIcon icon={faUser} fixedWidth />
+          </InputGroupText>
           <FormControl
             name="username"
             required
@@ -62,7 +69,7 @@ export default function Register() {
           />
         </InputGroup>
 
-        <InputGroup className="mb-3">
+        <InputGroup id="email" className="mb-3">
           <InputGroupText>
             <FontAwesomeIcon icon={faEnvelope} fixedWidth />
           </InputGroupText>
@@ -76,34 +83,46 @@ export default function Register() {
           />
         </InputGroup>
 
-        <InputGroup className="mb-3">
-          <InputGroupText><FontAwesomeIcon icon={faLock} fixedWidth /></InputGroupText>
-          <FormControl
-            type="password"
-            name="password"
-            required
-            disabled={submitting}
-            placeholder="Password"
-            aria-label="Password"
-          />
-        </InputGroup>
+        <div id="password">
+          <InputGroup className="mb-3">
+            <InputGroupText>
+              <FontAwesomeIcon icon={faLock} fixedWidth />
+            </InputGroupText>
+            <FormControl
+              type="password"
+              name="password"
+              required
+              disabled={submitting}
+              placeholder="Password"
+              aria-label="Password"
+            />
+          </InputGroup>
 
-        <InputGroup className="mb-3">
-          <InputGroupText><FontAwesomeIcon icon={faLock} fixedWidth /></InputGroupText>
-          <FormControl
-            type="password"
-            name="password_repeat"
-            required
-            disabled={submitting}
-            placeholder="Repeat password"
-            aria-label="Repeat password"
-          />
-        </InputGroup>
+          <InputGroup className="mb-3">
+            <InputGroupText>
+              <FontAwesomeIcon icon={faLock} fixedWidth />
+            </InputGroupText>
+            <FormControl
+              type="password"
+              name="password_repeat"
+              required
+              disabled={submitting}
+              placeholder="Repeat password"
+              aria-label="Repeat password"
+            />
+          </InputGroup>
+        </div>
 
-        <Button type="submit" className="d-block w-100" disabled={submitting} variant="success">
+        <Button
+          id="submit"
+          type="submit"
+          className="d-block w-100"
+          disabled={submitting}
+          variant="success"
+        >
           Create Account
         </Button>
       </Form>
     </>
-  )
+  );
 }
