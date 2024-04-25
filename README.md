@@ -1,6 +1,6 @@
 ![Text Logo](https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/65ab4119-21a6-4372-ad7c-d6e05428bf14)
 
-AidEyeKit is an open-source toolkit that enables app makers to create visual guides within apps. Our goal is to make all apps user-friendly.
+<p align="center">A toolkit that enables app makers to create visual guides within apps.</p>
 
 ## Demo
 
@@ -24,18 +24,12 @@ To build the SDK, navigate to the `sdk` folder and run the following command:
 bun run build
 ```
 
-## Testing the SDK
+## Testing the SDK Locally
 
-To test the SDK, navigate to the `sdk-tester` folder, and link the original SDK to the tester SDK by running the following command:
-
-```sh
-bun run link
-```
-
-Then, run the following command to test the SDK:
+You would need to link the SDK to your local npm registry. To do this, navigate to your test project and run the following command:
 
 ```sh
-bun run test
+npm link /path/to/this/sdk
 ```
 
 ## Running the Backend Server
@@ -57,19 +51,19 @@ OPENAI_API_KEY=your_api_key
 Before running the backend server, install the dependencies by running the following command:
 
 ```sh
-bun install
+npm install
 ```
 
 To run the server in development mode, run the following command:
 
 ```sh
-bun run start:dev
+npm run start:dev
 ```
 
 To run the server in production mode, first build the server by running the following command:
 
 ```sh
-bun run build
+npm run build
 ```
 
 Then, run the server by running the following command:
