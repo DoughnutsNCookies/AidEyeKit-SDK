@@ -18,7 +18,7 @@ This project uses Puppeteer and OpenAI's GPT-4 Vision together. Puppeteer first 
 
 ## Documentation
 
-The official documentation for AidEyeKit can be found at https://docs.aideyekit.com
+The official documentation for AidEyeKit can be found at [docs.aideyekit.com](https://docs.aideyekit.com)
 
 ## Building the SDK
 
