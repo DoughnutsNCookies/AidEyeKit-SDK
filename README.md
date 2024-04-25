@@ -4,7 +4,7 @@
 
 ## Demo
 
-For a more detailed demo with voiceover, click [here](https://youtu.be/gc_1hvezhbc).
+For a more detailed demo with voiceover, you can watch this [YouTube Video](https://youtu.be/gc_1hvezhbc)
 
 https://github.com/DoughnutsNCookies/AidEyeKit-SDK/assets/53002130/7d92543b-ac7d-4558-95c0-b441da5d4812
 
@@ -21,7 +21,7 @@ This project uses Puppeteer and OpenAI's GPT-4 Vision together. Puppeteer first 
 To build the SDK, navigate to the `sdk` folder and run the following command:
 
 ```sh
-bun run build
+npm run build
 ```
 
 ## Testing the SDK Locally
