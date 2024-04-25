@@ -8,7 +8,7 @@
 
 ## Why AidEyeKit?
 
-1. Written in vanilla Typescript
+1. Written in vanilla TypeScript
 2. ZERO Dependencies
 3. Highly customizable
 4. Easy to use
