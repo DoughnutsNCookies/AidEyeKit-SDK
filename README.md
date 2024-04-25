@@ -18,7 +18,7 @@ This project uses Puppeteer and OpenAI's GPT-4 Vision together. Puppeteer first 
 
 ## Building the SDK
 
-To build the SDK, navigate to the `sdk` folder and run the following command:
+To build the SDK, navigate to the `aideyekit` folder and run the following command:
 
 ```sh
 npm run build
