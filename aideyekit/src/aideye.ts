@@ -35,7 +35,7 @@ export function aideye(options: Config = {}) {
 
     const nextStepIndex = activeIndex + 1;
     if (steps[nextStepIndex]) {
-      aidAt(nextStepIndex);
+      start(nextStepIndex);
     } else {
       destroy();
     }
@@ -50,7 +50,7 @@ export function aideye(options: Config = {}) {
 
     const previousStepIndex = activeIndex - 1;
     if (steps[previousStepIndex]) {
-      aidAt(previousStepIndex);
+      start(previousStepIndex);
     } else {
       destroy();
     }
@@ -60,7 +60,7 @@ export function aideye(options: Config = {}) {
     const steps = getConfig("steps") || [];
 
     if (steps[index]) {
-      aidAt(index);
+      start(index);
     } else {
       destroy();
     }
@@ -146,7 +146,7 @@ export function aideye(options: Config = {}) {
     listen("arrowRightPress", handleArrowRight);
   }
 
-  function aidAt(stepIndex: number = 0) {
+  function start(stepIndex: number = 0) {
     const steps = getConfig("steps");
     if (!steps) {
       console.error("No steps to aid through");
@@ -218,13 +218,13 @@ export function aideye(options: Config = {}) {
               if (!hasNextStep) {
                 destroy();
               } else {
-                aidAt(stepIndex + 1);
+                start(stepIndex + 1);
               }
             },
         onPrevClick: onPrevClick
           ? onPrevClick
           : () => {
-              aidAt(stepIndex - 1);
+              start(stepIndex - 1);
             },
         onCloseClick: onCloseClick
           ? onCloseClick
@@ -310,9 +310,9 @@ export function aideye(options: Config = {}) {
   return {
     isActive: () => getState("isInitialized") || false,
     refresh: requireRefresh,
-    aidAt: (stepIndex: number = 0) => {
+    start: (stepIndex: number = 0) => {
       init();
-      aidAt(stepIndex);
+      start(stepIndex);
     },
     setConfig: configure,
     setSteps: (steps: AidEyeStep[]) => {
