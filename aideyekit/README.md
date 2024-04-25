@@ -9,7 +9,7 @@
 ## Why AidEyeKit?
 
 1. Written in vanilla TypeScript
-2. ZERO Dependencies
+2. ZERO dependencies
 3. Highly customizable
 4. Easy to use
 5. Lightweight
