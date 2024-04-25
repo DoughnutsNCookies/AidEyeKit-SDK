@@ -6,7 +6,7 @@
   "main": "./dist/aideyekit.cjs",
   "module": "./dist/aideyekit.mjs",
   "types": "./dist/aideyekit.d.ts",
-  "homepage": "https://aideyejs.com",
+  "homepage": "https://aideyekit.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DoughnutsNCookies/AidEyeKit-SDK.git"
