@@ -22,6 +22,7 @@ export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
     <NextLink
       href={href}
       className="text-default-900 active:bg-none max-w-full"
+      id={title.toLowerCase()}
     >
       <div
         className={clsx(
